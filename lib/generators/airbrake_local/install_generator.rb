@@ -2,7 +2,7 @@ require 'rails/generators/active_record'
 require 'airbrake_local/rails'
 
 module AirbrakeLocal
-  module Generators
+  # module Generators
     class InstallGenerator < ActiveRecord::Generators::Base
       TEMPLATES_PATH = File.expand_path('../templates', __FILE__)
       source_root File.expand_path(Engine.root, __FILE__)
@@ -12,5 +12,5 @@ module AirbrakeLocal
         copy_file "#{TEMPLATES_PATH}/airbrake_local.rb", 'config/initializers/airbrake_local.rb'
       end
     end
-  end
+  # end
 end
