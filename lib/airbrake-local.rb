@@ -1,5 +1,4 @@
-# require "airbrake"
-require "airbrake-local/rails"
+require "airbrake"
 
 module AirbrakeLocal
   class << self
@@ -61,21 +60,4 @@ Airbrake.instance_eval do
 
 end
 
-
-# class Airbrake
-#   # class << self
-#   #   def send_notice(notice)
-#   #     puts notice.inspect
-#   #   end
-#   # end
-
-#   def send_notice(notice)
-#     puts notice.inspect
-#   end
-
-#   # class Sender
-#   #   def send_to_airbrake(notice)
-#   #     puts notice.inspect
-#   #   end
-#   # end
-# end
+require "airbrake_local/rails"

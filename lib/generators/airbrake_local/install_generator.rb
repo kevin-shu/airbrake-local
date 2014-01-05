@@ -1,4 +1,5 @@
 require 'rails/generators/active_record'
+require 'airbrake_local/rails'
 
 module AirbrakeLocal
   module Generators
