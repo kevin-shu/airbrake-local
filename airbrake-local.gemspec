@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Host your error log in your own server with airbrake."
   s.description = "Host your error log in your own server with airbrake."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   # s.add_dependency "rails", "~> 3.2.16"
