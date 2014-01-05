@@ -2,7 +2,7 @@ require "airbrake"
 
 module AirbrakeLocal
   class << self
-    attr_accessor :mailing_list, :mail_period
+    attr_accessor :mailing_list, :mail_period, :mail_from
 
     def setup
       yield self
