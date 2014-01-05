@@ -32,29 +32,33 @@ Airbrake.instance_eval do
     # puts notice.project_root
     # puts notice.url
 
-    errorlog = {}
+    if notice.environment_name == "production"
 
-    attributes =  [ 
-                    :exception, :backtrace, :error_class, :environment_name,
-                    :cgi_data, :error_message, :parameters, :component, :action,
-                    :session_data, :project_root, :url
-                  ]
+      errorlog = {}
 
-    attributes.each do |attr|
-      if attr==:cgi_data
-        errorlog[attr] = notice[attr].to_json
-      else
-        errorlog[attr] = notice[attr].to_s
+      attributes =  [ 
+                      :exception, :backtrace, :error_class, :environment_name,
+                      :cgi_data, :error_message, :parameters, :component, :action,
+                      :session_data, :project_root, :url
+                    ]
+
+      attributes.each do |attr|
+        if attr==:cgi_data
+          errorlog[attr] = notice[attr].to_json
+        else
+          errorlog[attr] = notice[attr].to_s
+        end
       end
+
+      # puts errorlog.inspect
+
+      # AirbrakeLocal::ErrorLog
+      # puts AirbrakeLocal::ErrorLog
+      AirbrakeLocal::ErrorLog.create(errorlog)
+
+      AirbrakeLocal::ErrorMailer.error_notify(errorlog).deliver
+
     end
-
-    # puts errorlog.inspect
-
-    # AirbrakeLocal::ErrorLog
-    # puts AirbrakeLocal::ErrorLog
-    AirbrakeLocal::ErrorLog.create(errorlog)
-
-    AirbrakeLocal::ErrorMailer.error_notify(errorlog).deliver
 
   end
 
