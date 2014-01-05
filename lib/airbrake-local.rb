@@ -1,4 +1,4 @@
-require "airbrake"
+# require "airbrake"
 require "airbrake-local/rails"
 
 module AirbrakeLocal
