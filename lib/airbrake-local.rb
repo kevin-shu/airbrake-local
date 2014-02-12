@@ -34,7 +34,8 @@ Airbrake.instance_eval do
 
     if notice.environment_name == "production"
 
-      errorlog = {}
+      errorlog = AirbrakeLocal::ErrorLog.new
+      errorlog_in_hash = {}
 
       attributes =  [ 
                       :exception, :backtrace, :error_class, :environment_name,
@@ -44,24 +45,22 @@ Airbrake.instance_eval do
 
       attributes.each do |attr|
         if attr==:cgi_data
-          errorlog[attr] = notice[attr].to_json
+          errorlog.send("#{attr}=", notice[attr].to_json)
+          errorlog_in_hash[attr] = notice[attr].to_json
         else
-          errorlog[attr] = notice[attr].to_s
+          errorlog.send("#{attr}=", notice[attr].to_s)
+          errorlog_in_hash[attr] = notice[attr].to_s
         end
       end
 
-      # puts errorlog.inspect
+      # AirbrakeLocal::ErrorLog.create(errorlog)      
+      errorlog.save
 
-      # AirbrakeLocal::ErrorLog
-      # puts AirbrakeLocal::ErrorLog
-      AirbrakeLocal::ErrorLog.create(errorlog)
-
-      AirbrakeLocal::ErrorMailer.error_notify(errorlog).deliver
+      # AirbrakeLocal::ErrorMailer.error_notify(errorlog_in_hash).deliver
 
     end
-
+    
   end
-
 end
 
 require "airbrake_local/rails"

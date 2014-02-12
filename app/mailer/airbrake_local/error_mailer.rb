@@ -1,7 +1,7 @@
 # encoding: utf-8
 module AirbrakeLocal
   class ErrorMailer < ActionMailer::Base
-    default from: "server@example.com"
+    default from: AirbrakeLocal.mail_from
 
     def error_notify errorlog
       @errorlog = errorlog
