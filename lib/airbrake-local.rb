@@ -52,11 +52,9 @@ Airbrake.instance_eval do
           errorlog_in_hash[attr] = notice[attr].to_s
         end
       end
-
-      # AirbrakeLocal::ErrorLog.create(errorlog)      
+     
       errorlog.save
-
-      # AirbrakeLocal::ErrorMailer.error_notify(errorlog_in_hash).deliver
+      AirbrakeLocal::ErrorMailer.error_notify(errorlog_in_hash).deliver
 
     end
     
